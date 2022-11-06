@@ -10,7 +10,7 @@ matmul:
         @ w2 - [sp]
         @ m2 - [sp,#-4]
         @ m3 - [sp,#-8]
-        @ check if w1 == h2. if not equal return 1
+        @ check if w1 == h2. if not equal return 1, because matrices cannot be multiplied
         CMP     r1, r3
         BNE     exit_with_error
 
