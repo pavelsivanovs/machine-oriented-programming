@@ -9,9 +9,10 @@ int main(int argc, char **argv)
 {
     int h1, w1, h2, w2;
     int *m1, *m2, *m3;
+    int error = 0;
 
-    readMatrix(&h1, &w1, &m1);
-    readMatrix(&h2, &w2, &m2);
+    error = readMatrix(&h1, &w1, &m1) || readMatrix(&h2, &w2, &m2);
+    if (error) exit(1);
 
     // m3 has num of rows from m1 and num of cols from m2
     m3 = (int *) malloc(h1 * w2 * sizeof(int));
