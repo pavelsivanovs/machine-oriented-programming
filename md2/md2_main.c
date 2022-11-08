@@ -26,6 +26,11 @@ int main(int argc, char **argv)
     default:
         exit(result);
     }
+    
+    free(m1);
+    free(m2);
+    free(m3);
+
     return 0;
 }
 
@@ -47,6 +52,8 @@ int readMatrix(int *h, int *w, int **m)
 int writeMatrix(int h, int w, int *m)
 {
     int *iter = m;
+    printf("%d %d\n", h, w);
+
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++, iter++) {
             printf("%d ", *iter);
