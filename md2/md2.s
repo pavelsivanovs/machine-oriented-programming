@@ -24,7 +24,7 @@ matmul:
         MOV     r8, #0
 
 loop_row:
-        LDR     r0, [sp,#-4]    @ h1
+        LDR     r0, [sp,#-44]    @ h1
         CMP     r7, r0
 
         @ if r7 has reached h1
@@ -50,11 +50,11 @@ multiply_cell:
         @ r3 is used for iterating in m2 cols
 
         @ setting r2 to show at correct row of m1
-        LDR     r0, [sp,#-8]    @ w1
+        LDR     r0, [sp,#-40]   @ w1
         MUL     r1, r0, r7
         MOV     r0, #4
         MUL     r2, r1, r0      @ because int is 4 bytes long
-        LDR     r0, [sp,#-12]   @ m1
+        LDR     r0, [sp,#-36]   @ m1
         ADD     r2, r0, r2      @ adding an offset to m1 address to point at the first cell of r7 row of m1
 
         @ setting r3 to show at correct col of m2
@@ -84,7 +84,7 @@ dot_product:
 
         @ check if we should continue dot_product multiplication
         ADD     r6, r6, #1
-        LDR     r0, [sp,#-8]    @ w1 - equals to the num of terms in dot product
+        LDR     r0, [sp,#-40]   @ w1 - equals to the num of terms in dot product
         CMP     r6, r0          @ checking if dot product is completed
         BLT     dot_product
 
@@ -97,7 +97,7 @@ dot_product:
         ADD     r4, r4, r8      @ r4 offsets to correct row and col
         MOV     r1, #4
         MUL     r2, r4, r1      @ because cell size is 4 bytes
-        ADD     r3, r3, r2      @ r6 shows at r7,r8 cell of m3
+        ADD     r3, r3, r2      @ r3 shows at r7,r8 cell of m3
         STR     r9, [r3]
 
         @ increasing the iterator r8
@@ -105,8 +105,8 @@ dot_product:
         B       loop_column
 
 exit_without_error:
-        ADD     sp, sp, #44
-        LDMFD   sp!, {r0-r10}
+        SUB     sp, sp, #44
+        LDMFD   sp, {r0-r10}
         MOV     r0, #0
         BX      lr
 exit_with_error:
