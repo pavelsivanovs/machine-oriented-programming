@@ -1,0 +1,1 @@
+int ep1( char *str );
